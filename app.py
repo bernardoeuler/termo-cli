@@ -20,17 +20,39 @@ while True:
     if j >= 0:
       validation[i] = j
 
-  result = ""
+  chars = {}
       
   for guess_index, word_index in enumerate(validation):
+    char = guess[guess_index]
+    if char not in chars:
+      chars[char] = {}
     if guess_index == word_index:
-      result += green(guess[guess_index])
-    elif guess[guess_index] in word:
-      result += yellow(guess[guess_index])
-    else:
-      result += black(guess[guess_index])
+      if "correct" in chars[char]:
+        chars[char]["correct"] += 1
+      else:
+        chars[char]["correct"] = 1
+    elif char in word and chars[char]["correct"] < word.count(char):
+      if "outplace" in chars[char]:
+        chars[char]["outplace"] += 1
+      else:
+        chars[char]["outplace"] = 1
+    elif char not in chars:
+      chars[char]["correct"] = 0
+      chars[char]["outplace"] = 0
+      
+  result = ""
 
-  print(f"Resultado: {result}")
+  for index, char in enumerate(guess):
+    if "correct" in chars[char] and chars[char]["correct"] > 0 and char == word[index]:
+      result += green(char)
+      chars[char]["correct"] -= 1
+    elif "outplace" in chars[char] and chars[char]["outplace"] > 0 and char != word[index]:
+      result += yellow(char)
+      chars[char]["outplace"] -= 1
+    else:
+      result += black(char)
+
+  print(result)
     
   attempts += 1
   
