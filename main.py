@@ -54,6 +54,14 @@ def validate_guess(word: str, guess: str) -> list[int]:
 def check_correct_guess(validation_list: list[int]) -> bool:
   return all(result == 1 for result in validation_list)
 
+def check_guess_exists(words: list[str], guess: str) -> bool:
+  word_matches = list(filter(lambda w: w == guess, words))
+
+  if len(word_matches) == 0:
+    return False
+
+  return True
+
 def color_guess_result(guess: str, validation_list: list[int]) -> str:
   result_color_mapper = {0: 7, 1: 2, 2: 3, 3: 1}
   colored_guess = ''
@@ -95,10 +103,17 @@ word = pick_word(words)
 start_time = time.clock_gettime_ns(time.CLOCK_MONOTONIC)
 
 while True:
-  guess = input('Advinhe a palavra: ')
+  try:
+    guess = input('Advinhe a palavra: ')
+  except KeyboardInterrupt:
+    exit()
 
   if (len(guess) != WORD_LENGTH):
     print(f'Palpite inválido: {color_text(f'A palavra de ter exatamente {WORD_LENGTH} letras.', 1)}', end='\n\n')
+    continue
+
+  if (not check_guess_exists(words, guess)):
+    print(f'Palpite inválido: {color_text(f'A palavra digitada não é válida', 1)}', end='\n\n')
     continue
   
   validation_list = validate_guess(word, guess)
