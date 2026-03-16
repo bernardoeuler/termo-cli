@@ -3,6 +3,14 @@ import time
 
 WORD_LENGTH = 5
 
+def show_title():
+  print('''
+▗▄▄▄▖▗▄▄▄▖▗▄▄▖ ▗▖  ▗▖ ▗▄▖ 
+  █  ▐▌   ▐▌ ▐▌▐▛▚▞▜▌▐▌ ▐▌
+  █  ▐▛▀▀▘▐▛▀▚▖▐▌  ▐▌▐▌ ▐▌
+  █  ▐▙▄▄▖▐▌ ▐▌▐▌  ▐▌▝▚▄▞▘
+  ''')
+
 def color_text(text: str, color_number: int = 0):
   if color_number < 0 or color_number > 7:
     color_number = 0
@@ -101,6 +109,8 @@ words = get_words('words.txt')
 word = pick_word(words)
 
 start_time = time.clock_gettime_ns(time.CLOCK_MONOTONIC)
+
+show_title()
 
 while True:
   try:
