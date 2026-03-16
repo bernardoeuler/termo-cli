@@ -97,7 +97,7 @@ start_time = time.clock_gettime_ns(time.CLOCK_MONOTONIC)
 while True:
   guess = input('Advinhe a palavra: ')
 
-  if (len(guess) < WORD_LENGTH):
+  if (len(guess) != WORD_LENGTH):
     print(f'Palpite inválido: {color_text(f'A palavra de ter exatamente {WORD_LENGTH} letras.', 1)}', end='\n\n')
     continue
   
