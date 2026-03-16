@@ -17,12 +17,12 @@ def get_words(path: str) -> list[str]:
     with open(path, 'r') as file:
       words = [line.strip() for line in file.readlines()]
       if not validate_words_list(words, WORD_LENGTH) == True:
-        print(f'Failed to get words: {color_text(f'Some words doesn\'t have {WORD_LENGTH} characters', 1)}')
+        print(f'Falha ao buscar palavras: {color_text(f'Algumas palavras não têm {WORD_LENGTH} letras', 1)}')
         exit(1)
 
       return words
   except Exception as e:
-    print(f'Failed to get words: {color_text(str(e), 1)}')
+    print(f'Falha ao buscar palavras: {color_text(str(e), 1)}')
     exit(1)
 
 def pick_word(words: list[str]) -> str:
